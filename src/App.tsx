@@ -159,10 +159,81 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (actor) {
-      loadTasks()
+    if (!actor) {
+      return
     }
-  }, [actor])
+
+    loadTasks()
+
+    const refresh = async () => {
+      try {
+        const response = await fetch(
+          '/api/tasks',
+          {
+            credentials: 'include',
+            cache: 'no-store',
+          }
+        )
+
+        if (response.status === 401) {
+          setActor(null)
+          return
+        }
+
+        if (response.ok) {
+          const data =
+            await response.json()
+
+          setTasks(
+            data.tasks ?? []
+          )
+        }
+
+        if (expandedTask) {
+          const commentsResponse =
+            await fetch(
+              `/api/tasks/${expandedTask}/comments`,
+              {
+                credentials: 'include',
+                cache: 'no-store',
+              }
+            )
+
+          if (
+            commentsResponse.ok
+          ) {
+            const commentsData =
+              await commentsResponse.json()
+
+            setComments(
+              current => ({
+                ...current,
+                [expandedTask]:
+                  commentsData.comments ??
+                  [],
+              })
+            )
+          }
+        }
+      } catch {
+        // Een tijdelijke netwerkfout
+        // mag de huidige checklist
+        // niet onderbreken.
+      }
+    }
+
+    const interval =
+      window.setInterval(
+        refresh,
+        10000
+      )
+
+    return () => {
+      window.clearInterval(
+        interval
+      )
+    }
+  }, [actor, expandedTask])
 
   async function loadTasks() {
     setLoadingTasks(true)
