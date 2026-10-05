@@ -1,0 +1,77 @@
+{
+  "routes": [
+    {
+      "routePath": "/api/tasks/:id/comments",
+      "mountPath": "/api/tasks/:id",
+      "method": "GET",
+      "module": [
+        "api/tasks/[id]/comments.ts:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/tasks/:id/comments",
+      "mountPath": "/api/tasks/:id",
+      "method": "POST",
+      "module": [
+        "api/tasks/[id]/comments.ts:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/tasks/:id",
+      "mountPath": "/api/tasks",
+      "method": "DELETE",
+      "module": [
+        "api/tasks/[id].ts:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/tasks/:id",
+      "mountPath": "/api/tasks",
+      "method": "PATCH",
+      "module": [
+        "api/tasks/[id].ts:onRequestPatch"
+      ]
+    },
+    {
+      "routePath": "/api/login",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/login.ts:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/logout",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/logout.ts:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/me",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/me.ts:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/tasks",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/tasks.ts:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/tasks",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/tasks.ts:onRequestPost"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}
