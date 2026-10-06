@@ -78,6 +78,20 @@ const emptyNewTask: NewTask = {
   deadline: '',
 }
 
+function getGreeting() {
+  const hour = new Date().getHours()
+
+  if (hour >= 5 && hour < 12) {
+    return 'Goedemorgen'
+  }
+
+  if (hour >= 12 && hour < 18) {
+    return 'Goedemiddag'
+  }
+
+  return 'Goedenavond'
+}
+
 function App() {
   const [actor, setActor] =
     useState<Actor | null>(null)
@@ -730,7 +744,7 @@ function App() {
           </p>
 
           <h2>
-            Goedemorgen, {actor}
+            {getGreeting()}, {actor}
           </h2>
 
           <p>
